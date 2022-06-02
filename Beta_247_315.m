@@ -1,6 +1,6 @@
-function Beta_247_315(I,J,K,J1,J2,T5,T6,T7,A,Sa)
+function Beta_247_315(I,J,K,J1,J2,T5,T6,T7,A,Sa,CSd,J2a,Wp)
 
-global Wp F4 F5 F6 F7 F8 CABG W2 ZR ZI
+global F4 F5 F6 F7 F8 CABG W2 ZR ZI
 global  SRM W Xa Ya Za 
 
 % 247 REM ----- COMPUTE PSI(M,N,N+1/2)
@@ -8,7 +8,7 @@ P1 = 2*Wp(I) + I - 1;               % 248 P1=2*W%(I)+I-1
 P2 = 2*Wp(J) + J - 1;               % 249 P2=2*W%(J)+J-1
 P3 = P2 + 0.5;                      % 250 P3=P2+.5
 P4 = J2;                            % 251 P4=J2
-[T1, T2] = Gosub102(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,A(P4),Sa(P4)); % 252 GOSUB 102
+[T1, T2] = Gosub102(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,A(P4),Sa(P4),CSd,J2a,Wp); % 252 GOSUB 102
 U1 = F5*T1;                         % 253 U1=F5*T1
 U2 = F5*T2;                         % 254 U2=F5*T2
 
@@ -17,7 +17,7 @@ P3 = P2;                            % 256 P3=P2
 P2 = P2 - 0.5;                      % 257 P2=P2-.5
 P4 = J1;                            % 258 P4=J1
 % 259 IF F8<2 THEN GOSUB 102
-if F8 < 2, [T1, T2] = Gosub102(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,A(P4),Sa(P4)); end 
+if F8 < 2, [T1, T2] = Gosub102(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,A(P4),Sa(P4),CSd,J2a,Wp); end 
 V1 = F4*T1;                         % 260 V1=F4*T1
 V2 = F4*T2;                         % 261 V2=F4*T2
 
@@ -37,7 +37,7 @@ Y3=U2*CABG(J2,2)+V2*CABG(J1,2);     % 269 Y3=U2*CB(J2)+V2*CB(J1)
 Z3=(F7*U2*CABG(J2,3)+F6*V2*CABG(J1,3))*K;
 D2=W2*(X3*T5+Y3*T6+Z3*T7);          % 272 D2=W2*(X3*T5+Y3*T6+Z3*T7)
 
-[U1,U2] = Sub_273_312(I,J,K, J1, J2, T1, T2, U1, U2, P1, P3);
+[U1,U2] = Sub_273_312(I,J,K, J1, J2, T1, T2, U1, U2, P1, P3,CSd,J2a,Wp); %,);  J2a
 
 % 313 REM ----- SUM INTO IMPEDANCE MATRIX
 ZR(I,J)=ZR(I,J)+K*(D1+U1);          % 314 ZR(I,J)=ZR(I,J)+K*(D1+U1)

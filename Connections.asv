@@ -1,4 +1,8 @@
-function [ELM,I1,I2,J1a,J2a] = Connections(I,NW,G,XYZ1,XYZ2,A,S1,ELM,J1a,J2a)
+function [ELM,I1,I2,J1a,J2a] = Connections(I,NW,G,XYZ1,XYZ2,A,S1,ELM)
+
+%global J2a J1a
+
+persistent J1a
 
 % 1298 REM ********** CONNECTIONS **********
 

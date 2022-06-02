@@ -1,10 +1,9 @@
-function CurrX = ImpedanceMatrixCalculation(CurrX,J2a)
+function CurrX = ImpedanceMatrixCalculation(CurrX)
 
 global N G Cp FLG CABG Sa P1 P2
 global I J F4 F5 F6 F7 F8 ZR ZI
 global A
-global CSd Wp
-
+gl
 % global fidZRZI
 
 % 195 REM ********** IMPEDANCE MATRIX CALCULATION **********

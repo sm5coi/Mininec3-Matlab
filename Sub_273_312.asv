@@ -1,6 +1,8 @@
-function [U1, U2] = Sub_273_312(I,J,K, J1, J2, T1, T2, U1, U2, P1, P3,CSd,J2a,Wp)
+function [U1, U2] = Sub_273_312(I,J,K, J1, J2, T1, T2, U1, U2, P1, P3) %,CSd,J2a,Wp)
 
 global Sa F5 F8 SRM Xa Ya Za W A
+
+global CSd J2a Wp 
 
 % 273 REM ----- COMPUTE PSI(M+1/2,N,N+1)
 P1=P1+.5;                           % 274 P1=P1+.5

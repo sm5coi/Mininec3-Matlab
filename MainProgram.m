@@ -29,7 +29,7 @@ fprintf('%s%s\n', BSd, BSd)
 FrequencyInput;
 G = EnvironmentInput;
 % 1526 REM ----- GEOMETRY INPUT
-[N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM] = GeometryInput(G);
+[N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM,J1a,J2a] = GeometryInput(G);
 % 1528 REM ----- MENu
 fidPsi = fopen('PSI_DATA.dat','w');
 fidGau = fopen('GAUSS_DATA.dat','w');
@@ -43,7 +43,7 @@ fprintf('   F - CHANGE FREQUENCY    Q - QUIT\n\n')
 CSd = input('   COMMAND ','s');
 CSd = upper(CSd);
 if CSd == 'P', FarFieldCalculation; end
-if CSd == 'C', PrintCurrents; end
+if CSd == 'C', PrintCurrents(J1a,J2a); end
 if CSd == 'N', NearField; end
 if CSd == 'Q', break, end
 end

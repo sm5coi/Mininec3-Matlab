@@ -1,6 +1,6 @@
-function [T1, T2] = Gosub102(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,Ap4,Sa4)
+function [T1, T2] = Gosub102(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,Ap4,Sa4,CSd,J2a,Wp)
 
-global CSd J2a Wp 
+%global CSd J2a Wp 
 
 % 100 REM ----- S(M) GOES IN (X1,Y1,Z1) FOR VECTOR POTENTIAL
 % 101 REM ----- MOD FOR SMALL RADIUS TO WAVE LENGTH RATIO

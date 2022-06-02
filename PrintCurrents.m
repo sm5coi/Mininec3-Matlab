@@ -1,6 +1,6 @@
-function PrintCurrents
+function PrintCurrents(J1a,J2a)
 
-global NW Na Cp G BSd Os J1a cForm dForm fidPsi
+global NW Na Cp G BSd Os cForm dForm fidPsi
 persistent CurrX
 
 Rub1 = 'PULSE         REAL          IMAGINARY     MAGNITUDE     PHASE\n';
@@ -11,7 +11,7 @@ cForm = '  %c           % 12.6E % 12.6E % 12.6E % 9.5f\n';
 dForm = '%3d           % 12.6E % 12.6E % 12.6E % 9.5f\n';
 
 % 496 REM ********** PRINT CURRENTS **********
-CurrX = ImpedanceMatrixCalculation(CurrX);
+CurrX = ImpedanceMatrixCalculation(CurrX,J2a);
 Ss = 'N';
 %CurrX = complex(CR,CI);
 fprintf(fidPsi, '\n%s CURRENT DATA %s\n', BSd, BSd);
