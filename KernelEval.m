@@ -1,6 +1,6 @@
 function [T3, T4] = KernelEval(K, X2,Y2,Z2, V1,V2,V3, T, W, SRM, I6u, T3, T4, Ap4)
 
-A2 = Ap4*Ap4;
+A2 = Ap4*Ap4;  % Ap4 = A(P4), A = wire radii, P4 
 
 % 27 REM ********** KERNEL EVALUATION OF INTEGRALS I2 & I3 **********
 if K >= 0                           % 28 IF K<0 THEN 33

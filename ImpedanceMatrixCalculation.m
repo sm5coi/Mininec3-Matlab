@@ -40,7 +40,7 @@ for I =1:N  % 211 FOR I=1 TO N  (to 336)
     
     % 221 REM ----- COMPUTE COLUMN J OF ROW I (SOURCE LOOP)
     for J = 1:N  % 222 FOR J=1 TO N (to 333)
-        J1 = abs(Cp(J,1));              % 223 J1=ABS(C%(J,1))
+        J1 = abs(Cp(J,1));              % 223 J1=ABS(C%(J,1)) 
         J2 = abs(Cp(J,2));              % 224 J2=ABS(C%(J,2))
         F4 = sign(Cp(J,1));             % 225 F4=SGN(C%(J,1))
         F5 = sign(Cp(J,2));             % 226 F5=SGN(C%(J,2))
