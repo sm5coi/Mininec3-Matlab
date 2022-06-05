@@ -1,19 +1,19 @@
-function CurrX = ImpedanceMatrixCalculation(CurrX,J2a)
+function CurrX = ImpedanceMatrixCalculation(CurrX,J2a,XYZa)
 
 global N G Cp FLG CABG Sa P1 P2
 global I J F4 F5 F6 F7 F8 ZR ZI
 global A
 global CSd Wp
 
-% global fidZRZI
+global fidZRZI
 
 % 195 REM ********** IMPEDANCE MATRIX CALCULATION **********
-if FLG == 1                             % 196 IF FLG=1 THEN 428
+if FLG == 1      % NEW EXCITATION, RECALCULATE CURRENT % 196 IF FLG=1 THEN 428
     [CurrX] = MatSolve(Z);
     SourceData(CurrX);
     return
 end
-if FLG == 2                             % 197 IF FLG=2 THEN 477
+if FLG == 2      % NO NEED to RECALCULATE              % 197 IF FLG=2 THEN 477
     SourceData(CurrX);
     return
 end
@@ -50,13 +50,15 @@ for I =1:N  % 211 FOR I=1 TO N  (to 336)
         % 229 REM ----- IMAGE LOOP
         for K = 1:-2:G                  % 230
             if ~(Cp(J,1) ~= -Cp(J,2))   % 231
-                if K < 0, continue, end % 232 IF K<0 THEN 332
+                if K < 0
+                    continue
+                end % 232 IF K<0 THEN 332
                 F6 = F4;                % 233 F6=F4
                 F7 = F5;                % 234 F7=F5
             end
             F8 = 0;                     % 235 F8=0
             if K < 0                    % 236 IF K<0 THEN 248
-                Beta_247_315(I,J,K,J1,J2,T5,T6,T7,A,Sa,CSd,J2a,Wp) % *******************
+                Beta_247_315Cmplx(I,J,K,J1,J2,T5,T6,T7,A,Sa,CSd,J2a,Wp,XYZa) % *******************
             else
                 % 237 REM ----- SET FLAG TO AVOID REDUNANT CALCULATIONS
                 L238 = I1 ~= I2;
@@ -67,35 +69,53 @@ for I =1:N  % 211 FOR I=1 TO N  (to 336)
                 L243 = Cp(J,1) ~= Cp(J,2);
                 % Tested with http://electronics-course.com/boolean-algebra
                 if ((L239 || ~L240) && (L242 || ~L243) && ~L238 && ~L241 )
-                    if I1 == J1, F8 = 1; end  %244 IF I1=J1 THEN F8=1
-                    if I == J, F8 = 2; end %245 IF I=J THEN F8=2 
+                    if I1 == J1
+                        F8 = 1;
+                    end  %244 IF I1=J1 THEN F8=1
+                    if I == J
+                        F8 = 2;
+                    end %245 IF I=J THEN F8=2 
                 end
                 
                 if ZR(I,J) == 0         % 246 IF ZR(I,J)<>0 THEN 317
-                    Beta_247_315(I,J,K,J1,J2,T5,T6,T7,A,Sa,CSd,J2a,Wp)  % *******************
+                    Beta_247_315Cmplx(I,J,K,J1,J2,T5,T6,T7,A,Sa,CSd,J2a,Wp,XYZa)  % *******************
                 end
             end
             
             % 316 REM ----- AVOID REDUNANT CALCULATIONS
-            if J < I, continue, end     % 317 IF J<I THEN 332
-            if F8 == 0, continue, end   % 318 IF F8=0 THEN 332
+            if J < I
+                continue
+            end     % 317 IF J<I THEN 332
+            if F8 == 0
+                continue
+            end   % 318 IF F8=0 THEN 332
             ZR(J,I) = ZR(I,J);          % 319 ZR(J,I)=ZR(I,J)
             ZI(J,I) = ZI(I,J);          % 320 ZI(J,I)=ZI(I,J)
 
             % 321 REM ----- SEGMENTS ON SAME WIRE SAME DISTANCE APART HAVE SAME Z
             P1 = J + 1;                 % 322 P1=J+1 
-            if P1 > N, continue, end    % 323 IF P1>N THEN 332
-            if Cp(P1,1) ~= Cp(P1,2), continue, end % 324
+            if P1 > N
+                continue
+            end    % 323 IF P1>N THEN 332
+            if Cp(P1,1) ~= Cp(P1,2)
+                continue
+            end % 324
             if ~(Cp(P1,2) == Cp(J,2))  % 325 IF C%(P1,2)=C%(J,2) THEN 328
-                if Cp(P1,2) ~= -Cp(J,2), continue, end % 326
-                if (CABG(J2,1) + CABG(J2,2)) ~= 0, continue, end % 327
+                if Cp(P1,2) ~= -Cp(J,2)
+                    continue
+                end % 326
+                if (CABG(J2,1) + CABG(J2,2)) ~= 0
+                    continue
+                end % 327
             end
             P2 = I + 1;                 % 328 P2=I+1
-            if P2 > N, continue, end    % 329 IF P2>N THEN 332
+            if P2 > N
+                continue
+            end    % 329 IF P2>N THEN 332
             ZR(P2,P1) = ZR(I,J);        % 330 ZR(P2,P1)=ZR(I,J)
             ZI(P2,P1) = ZI(I,J);        % 331 ZI(P2,P1)=ZI(I,J)
         end                             % 332 NEXT K
-        %fprintf(fidZRZI,'332 %d %d %e %e\n', I, J, ZR(I,J), ZI(I,J));
+        fprintf(fidZRZI,'332 %d %d %e %e\n', I, J, ZR(I,J), ZI(I,J));
     end  % 333 NEXT J
 end  % 336 NEXT I
 

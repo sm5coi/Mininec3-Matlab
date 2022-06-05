@@ -1,4 +1,4 @@
-function [N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM,J1a,J2a] = GeometryInput(G)
+function [N,NW,CABG,Sa,Na,Cp,Wp,XYZa,A,ELM,J1a,J2a] = GeometryInput(G)
 
 global FLG
 
@@ -13,8 +13,8 @@ end
 % 1155 INPUT "NO. OF WIRES";NW
 NW = 2
 ELM = zeros(NW*2,3);
-J1a = zeros(2,2);
-J2a = zeros(2,2);
+J1a = zeros(NW,2);
+J2a = zeros(NW,2);
 
 % 1161 REM ----- INITIALIZE NUMBER OF PULSES TO ZERO
 N = 0;
@@ -50,7 +50,8 @@ for I = 1:NW
     % 1198 REM ----- COMPUTE CONNECTIVITY DATA (PULSES N1 TO N)
     N1 = N + 1;
     Na(I,1) = N1;
-    if (S1 == 1) && (I1 == 0), Na(I,1) = 0; end
+    if (S1 == 1) && (I1 == 0)
+        Na(I,1) = 0;end
     N = N1 + S1;
     if I1 == 0, N = N - 1; end
     if I2 == 0, N = N - 1; end
@@ -109,7 +110,7 @@ for I = 1:NW
     end
 end
 % 1256 1291 ********** GEOMETRY OUTPUT **********
-
+XYZa = [Xa; Ya; Za]';
 Cp = GeometryOutput(N,Wp,NW,Na,Xa,Ya,Za,A,Cp);
 % % 1292 REM ----- EXCITATION INPUT
 ExcitationInput(N);

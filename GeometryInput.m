@@ -1,4 +1,4 @@
-function [N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM,J1a,J2a] = GeometryInput(G)
+function [N,NW,CABG,Sa,Na,Cp,Wp,XYZa,A,ELM,J1a,J2a] = GeometryInput(G)
 
 global FLG
 
@@ -11,7 +11,7 @@ end
 % 1150 REM ********** GEOMETRY INPUT **********
 % 1151 REM ----- WHEN GEOMETRY IS CHANGED, ENVIRONMENT MUST BE CHECKED
 % 1155 INPUT "NO. OF WIRES";NW
-NW = 2
+NW = 2;
 ELM = zeros(NW*2,3);
 J1a = zeros(NW,2);
 J2a = zeros(NW,2);
@@ -50,20 +50,28 @@ for I = 1:NW
     % 1198 REM ----- COMPUTE CONNECTIVITY DATA (PULSES N1 TO N)
     N1 = N + 1;
     Na(I,1) = N1;
-    if (S1 == 1) && (I1 == 0), Na(I,1) = 0; end
+    if (S1 == 1) && (I1 == 0)
+        Na(I,1) = 0;
+    end
     N = N1 + S1;
-    if I1 == 0, N = N - 1; end
-    if I2 == 0, N = N - 1; end
+    if I1 == 0
+        N = N - 1;
+    end
+    if I2 == 0
+        N = N - 1;
+    end
     Na(I,2) = N;
-    if (S1 == 1) && (I2 == 0), Na(I,2) = 0; end
+    if (S1 == 1) && (I2 == 0)
+        Na(I,2) = 0;
+    end
     if N >= N1
         for J = N1:N
             Cp(J,1) = I;
             Cp(J,2) = I;
-            Wp(J) = I;
+            Wp(J)   = I;
         end
         Cp(N1,1) = I1;
-        Cp(N,2) = I2;
+        Cp(N,2)  = I2;
         % 1216 REM ----- COMPUTE COORDINATES OF BREAK POINTS
         I1 = N1 + 2*(I-1);
         I3 = I1;
@@ -75,7 +83,9 @@ for I = 1:NW
             F3=sign(Cp(N1,1))*Sa(I2);
             Xa(I1) = Xa(I1) - F3*CABG(I2,1);
             Ya(I1) = Ya(I1) - F3*CABG(I2,2);
-            if Cp(N1,1)== -I, F3 = -F3; end
+            if Cp(N1,1)== -I
+                F3 = -F3;
+            end
             Za(I1) = Za(I1) - F3*CABG(I2,3);
             I3 = I3 + 1;
         end
@@ -92,7 +102,9 @@ for I = 1:NW
             I3 = I6-1;
             Xa(I6) = Xa(I3) + F3*CABG(I2,1);
             Ya(I6) = Ya(I3) + F3*CABG(I2,2);
-            if I == -Cp(N,2), F3 = -F3; end
+            if I == -Cp(N,2)
+                F3 = -F3;
+            end
             Za(I6) = Za(I3) + F3*CABG(I2,3);
         end
         continue;
@@ -102,6 +114,7 @@ for I = 1:NW
         Xa(I1)=XYZ1(1);
         Ya(I1)=XYZ1(2);
         Za(I1)=XYZ1(3);
+
         I1=I1+1;
         Xa(I1)=XYZ2(1);
         Ya(I1)=XYZ2(2);
@@ -109,7 +122,7 @@ for I = 1:NW
     end
 end
 % 1256 1291 ********** GEOMETRY OUTPUT **********
-
+XYZa = [Xa; Ya; Za]';
 Cp = GeometryOutput(N,Wp,NW,Na,Xa,Ya,Za,A,Cp);
 % % 1292 REM ----- EXCITATION INPUT
 ExcitationInput(N);
