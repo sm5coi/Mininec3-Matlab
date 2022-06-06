@@ -1,9 +1,15 @@
-function FarFieldCalculation
+function [CurrX,FLG]=FarFieldCalculation(XYZa,freq,FLG,envir,CurrX,geom)
 
-global FLG PWR NM F BSd G N Cp W Sa Wp Ua
-global CABG Xa Ya Za CR CI G0
+global PWR NM F BSd G N Cp W Sa Wp Ua
+global CABG  CR CI G0
 global fidPsi
 
+% FLG
+
+% Xa Ya Za
+Xa = XYZa(:,1)';
+Ya = XYZa(:,2)';
+Za = XYZa(:,3)';
 
 CA = CABG(:,1);
 CB = CABG(:,2);
@@ -18,7 +24,7 @@ dForm =' %3d           %3d          % 8.3f      % 8.3f      % 8.3f\n';
 % 620 REM ********** FAR FIELD CALCULATION **********
 % 621 IF FLG < 2 THEN GOSUB 196
 if (FLG < 2)
-    ImpedanceMatrixCalculation;
+   [CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom);
 end
 % 622 O2 = PWR
 O2 = PWR;

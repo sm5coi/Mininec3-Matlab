@@ -1,8 +1,8 @@
-function PrintCurrents(J1a,J2a,XYZa)
+function [CurrX,FLG] = PrintCurrents(CurrX,freq,FLG,envir,geom)
 
-% global Os
 global NW Na Cp G BSd  cForm dForm fidPsi
-persistent CurrX
+
+J1a = geom.J1a;
 
 Rub1 = 'PULSE         REAL          IMAGINARY     MAGNITUDE     PHASE\n';
 Rub2 = ...
@@ -12,7 +12,7 @@ cForm = '  %c           % 12.6E % 12.6E % 12.6E % 9.5f\n';
 dForm = '%3d           % 12.6E % 12.6E % 12.6E % 9.5f\n';
 
 % 496 REM ********** PRINT CURRENTS **********
-CurrX = ImpedanceMatrixCalculation(CurrX,J2a,XYZa);
+[CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom);
 Ss = 'N';
 %CurrX = complex(CR,CI);
 fprintf(fidPsi, '\n%s CURRENT DATA %s\n', BSd, BSd);
@@ -32,7 +32,7 @@ for K = 1:NW  % 501 FOR K=1 TO NW (to 555)
     if ~(G == 1)  % 512 IF G=1 THEN 515  %*** ~B ***
         if (J1a(K) == -1) && (N1 > N2), N2 = N1; end %*** C ***
     end
-    if ~(J1a(K) == -1) || (G == 1) %*** ~D or B ***
+    if ~(J1a(K) == -1) || (envir.G == 1) %*** ~D or B ***
         %*** E..I ***
         %*** E ***
         Ep = 1;
@@ -56,7 +56,7 @@ for K = 1:NW  % 501 FOR K=1 TO NW (to 555)
     C = Cp(I,2);
     if ((N1 == 0) && (N2 == 0)), C = K; end
     
-    if (G == 1) || ~(J1a(K) == 1) %*** K or ~L ***
+    if (envir.G == 1) || ~(J1a(K) == 1) %*** K or ~L ***
         Ep = 2;
         [IJu, Is] = SortJunctionCurrents(Ep, I, C, K, CurrX);
         if ((N1 == 0) && (N2 == 0)) || (N1 > N2) %*** N or O ****

@@ -2,7 +2,7 @@ function AdditionOfLoads
 
 % 342 REM ********** ADDITION OF LOADS **********
 % 343 IF NL=0 THEN 377
-% 344 F5=2*P*F
+% 344 F5=2*pi*F
 % 345 FOR I=1 TO NL
 % 346 	IF L$="N" THEN 366
 % 347 	REM ----- S-PARAMETER LOADS

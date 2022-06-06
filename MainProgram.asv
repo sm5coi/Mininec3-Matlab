@@ -1,8 +1,12 @@
 function MainProgram
-% global
-global MS ML MA MM MP P P0 CSd BSd G0 G
+
+clear global
+
+global MS ML MA MP P0 CSd BSd G0 % G MM
 global fidPsi fidGau fidZRZI
-global N NW CABG Sa Na Cp Wp Xa Ya Za A ELM 
+global N NW CABG Sa Na Cp Wp A ELM 
+
+persistent CurrX
 
 % 1 REM ****** MININEC(3) **********  NOSC CODE 822 (JCL CHANGE 9) 11-26-86
 % 4 REM ----- MAXIMUM NUMBER OF SEGMENTS (PULSES + 2 * WIRES) = 150
@@ -12,24 +16,24 @@ ML = 11;
 % 12 REM ----- MAXIMUM ORDER OF S-PARAMETER LOADS = 8
 MA = 8;
 % 15 REM ----- MAXIMUM NUMBER OF MEDIA = 6
-MM = 6;
+% MM = 6;
 % 19 REM ----- MAXIMUM NUMBER OF PULSES = 50 
 MP = 50;
 % 1494 REM ********** MAIN PROGRAM **********
 % 1496 REM ----- PI
-P = pi;
+% P = pi;
 % 1498 REM ----- CHANGES DEGREES TO RADIANS
 P0 = pi/180;
 BSd = '********************';
 % 1501 REM ----- INTRINSIc IMPEDANCE OF FREE SPACE DIVIDED BY 2 PI
 G0 = 29.979221;
 % 1513 REM ----- IDENTIFY OUTPUT DEVICE
-Os = 'D';
+% Os = 'D';
 fprintf('%s%s\n', BSd, BSd)
-FrequencyInput;
-G = EnvironmentInput;
+[freq,FLG] = FrequencyInput;
+envir = EnvironmentInput;
 % 1526 REM ----- GEOMETRY INPUT
-[N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM,J1a,J2a] = GeometryInput(G);
+[N,NW,CABG,Sa,Na,Cp,Wp,XYZa,A,ELM,J1a,J2a,geom,FLG] = GeometryInput(envir.G);
 % 1528 REM ----- MENu
 fidPsi = fopen('PSI_DATA.dat','w');
 fidGau = fopen('GAUSS_DATA.dat','w');
@@ -42,9 +46,15 @@ fprintf('   L - CHANGE LOADS\n')
 fprintf('   F - CHANGE FREQUENCY    Q - QUIT\n\n')
 CSd = input('   COMMAND ','s');
 CSd = upper(CSd);
-if CSd == 'P', FarFieldCalculation; end
-if CSd == 'C', PrintCurrents(J1a,J2a); end
-if CSd == 'N', NearField; end
+if CSd == 'P'
+    [CurrX,FLG]=FarFieldCalculation(XYZa,freq,FLG,envir,CurrX); 
+end
+if CSd == 'C'
+    [CurrX,FLG] = PrintCurrents(CurrX,J1a,J2a,XYZa,freq,FLG,envir); 
+end
+if CSd == 'N'
+    [CurrX,FLG] = NearField(XYZa,freq,FLG,envir,CurrX); 
+end
 if CSd == 'Q', break, end
 end
 

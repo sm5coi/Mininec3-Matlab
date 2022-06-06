@@ -1,15 +1,16 @@
-function NearField
+function [CurrX,FLG] = NearField(XYZa,freq,FLG,envir,CurrX,geom)
 
-global FLG PWR NM F BSd G N Cp W Sa Wp Ua S0
+global  PWR NM F BSd N Cp W Sa Wp Ua S0
 global CABG Xa Ya Za CR CI G0
 global fidPsi
 
+% FLG G
 
 % 873 REM ********** NEAR FIELD CALCULATION **********
 % 874 REM ----- ENSURE CURRENTS HAVE BEEN CALCULATED
 % 875 IF FLG < 2 THEN GOSUB 196
 if (FLG < 2)
-    ImpedanceMatrixCalculation;
+    [CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom);
 end
 % 876 O2 = PWR
 O2 = PWR;
@@ -129,7 +130,7 @@ for IZ = 1:NZ
                 %                 956 U8 = 0
                 U8 = 0;
                 %                 957 GOTO 968
-                
+
                 %                 958 FOR J8 = 1 TO 6
                 %                     959 K!(J8, 1) = 0
                 %                     960 K!(J8, 2) = 0
@@ -139,7 +140,7 @@ for IZ = 1:NZ
                 %                 964 IF I = 1 THEN X0 = XX + J8 * S0 / 2
                 %                 965 IF I = 2 THEN Y0 = YY + J8 * S0 / 2
                 %                 966 IF I = 3 THEN Z0 = ZZ + J8 * S0 / 2
-                
+
                 %                 967 REM ----- LOOP OVER SOURCE SEGMENTS
                 %                 968 FOR J = 1 TO N
                 for J = 1:N
@@ -165,7 +166,7 @@ for IZ = 1:NZ
                     U6 = 0;
                     %                     979 REM ----- IMAGE LOOP
                     %                     980 FOR K = 1 TO G STEP -2
-                    for K = 1:-2:G
+                    for K = 1:-2:envir.G
                         %                         981 IF C%(J, 1) <> -C%(J, 2) THEN 987
                         %                         982 IF K < 0 THEN 1048
                         if (K < 0), continue, end

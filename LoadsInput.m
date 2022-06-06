@@ -1,6 +1,8 @@
-function LoadsInput
+function FLG = LoadsInput(FLG)
 
-global MS MW ML MA MM MP P P0 G N FLG Ea La Ma S0 M SRM W W2
+global  ML MA  N 
+
+% MS MW MM MP P P0 G Ea La Ma S0 M SRM W W2 FLG 
 
 % 1454 REM ********** LOADS INPUT **********
 % 1455 PRINT

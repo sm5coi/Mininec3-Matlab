@@ -1,25 +1,29 @@
-function [G] = EnvironmentInput
+function envir = EnvironmentInput
 
-global NR Ua NM
+%global NR Ua NM
 
-Ua(1) = 0;
+envir.Ua(1) = 0;
 % 1363 REM ********** ENVIROMENT INPUT **********
 % 1368 REM ----- INITIALIZE NUMBER OF RADIAL WIRES TO ZERO
-NR=0;
+envir.NR=0;
 % 1370 REM ----- SET ENVIRONMENT
 % A$= 'ENVIRONMENT (+1 FOR FREE SPACE, -1 FOR GROUND PLANE)';
-G = -1
-if G == 1, return, end
+envir.G = -1;
+if envir.G == 1
+    return
+end
 % 1378 REM ----- NUMBER OF MEDIA
 % 1379 A$=" NUMBER OF MEDIA (0 FOR PERFECTLY CONDUCTING GROUND)"
-NM = 0;
+envir.NM = 0;
 % 1386 REM ----- INITIALIZE BOUNDARY TYPE
-TB=1;
-if NM == 0, return, end
+envir.TB=1;
+if envir.NM == 0
+    return
+end
 % 1390 REM ----- TYPE OF BOUNDARY
 % 1391 A$=" TYPE OF BOUNDARY (1-LINEAR, 2-CIRCULAR)"
 % 1395 REM ----- BOUNDARY CONDITIONS
-for I = 1:NM
+for I = 1:envir.NM
     % 1397 PRINT "MEDIA";I
     % 1398 A$=" RELATIVE DIELECTRIC CONSTANT, CONDUCTIVITY"
     % 1399 PRINT "         ";A$;
@@ -44,7 +48,7 @@ for I = 1:NM
     % 1418 A$=" X OR R COORDINATE OF NEXT MEDIA INTERFACE"
     % 1419 PRINT "          ";A$;
     % 1420 INPUT U(I)
-    Ua(I) = 0;
+    envir.Ua(I) = 0;
     % 1421 IF O$>"C" THEN PRINT #3,A$;": ";U(I)
     % 1422 IF I=1 THEN 1427
     % 1423 A$=" HEIGHT OF MEDIA"
@@ -52,4 +56,5 @@ for I = 1:NM
     % 1425 INPUT H(I)
     % 1426 IF O$>"C" THEN PRINT #3,A$;": ";H(I)
 end
+
 return

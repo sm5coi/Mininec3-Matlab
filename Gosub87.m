@@ -1,4 +1,4 @@
-function [T1,T2] = Gosub87(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,Ap4,Sa4,CSd,J2a,Wp)
+function [T1, T2] = Gosub87(I,J,K,SRM,P1,P2,P3,Xa,Ya,Za,W,Ap4,Sa4,CSd,J2a,Wp)
 
 % global CSd J2a Wp 
 
@@ -26,5 +26,10 @@ Z1 = (Za(I4) + Za(I5))/2;   % 98 Z1=(Z(I4)+Z(I5))/2
 [X2,Y2,Z2,V1,V2,V3] = Gosub113(K,P2,P3,Xa,Ya,Za, X1,Y1,Z1);
 
 [T1,T2] = Gosub135(I,J,K,X2,Y2,Z2,V1,V2,V3,P2,P3,CSd,J2a, Wp,SRM,FVS,W, Ap4, Sa4);
+
+% [XYZ2,V123] = Gosub113Cmplx(K,P1,P2,P3,XYZa);
+% 
+% T12 = Gosub135Cmplx(I,J,K,XYZ2,V123,P2,P3,CSd,J2a, Wp,SRM,FVS,W, Ap4, Sa4);
+
 
 return

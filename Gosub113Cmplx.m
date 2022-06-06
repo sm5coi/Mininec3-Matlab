@@ -1,6 +1,5 @@
-function [XYZ2, V123] = Gosub113Cmplx(K,P1,P2,P3,XYZa)
+function [XYZ2, V123] = Gosub113Cmplx(K,P2,P3,XYZa,XYZ1)
 
-XYZ1 = XYZa(P1,:)';
 
 % 112 REM ----- S(U)-S(M) GOES IN (X2,Y2,Z2)
 I4 = fix(P2);                           % 113 I4=INT(P2)

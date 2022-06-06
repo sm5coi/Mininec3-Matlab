@@ -1,6 +1,6 @@
-function [N,NW,CABG,Sa,Na,Cp,Wp,XYZa,A,ELM,J1a,J2a] = GeometryInput(G)
+function [N,NW,CABG,Sa,Na,Cp,Wp,XYZa,A,ELM,J1a,J2a,geom,FLG] = GeometryInput(G,FLG)
 
-global FLG
+% global FLG
 
 INFILE = 1;
 
@@ -125,9 +125,23 @@ end
 XYZa = [Xa; Ya; Za]';
 Cp = GeometryOutput(N,Wp,NW,Na,Xa,Ya,Za,A,Cp);
 % % 1292 REM ----- EXCITATION INPUT
-ExcitationInput(N);
+ExcitationInput(N,FLG);
 % % 1294 REM ----- LOADS/NETWORKS INPUT
-LoadsInput;
+FLG = LoadsInput(FLG);
+
+geom.N = N;
+geom.NW = NW;
+geom.CABG = CABG;
+geom.Sa = Sa;
+geom.Na = Na;
+geom.Cp = Cp;
+geom.Wp = Wp;
+geom.XYZa = XYZa;
+geom.A = A;
+geom.ELM = ELM;
+geom.J1a = J1a;
+geom.J2a = J2a;
+
 FLG = 0;
 return
 

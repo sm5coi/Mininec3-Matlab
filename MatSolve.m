@@ -1,6 +1,6 @@
-function [CurrX] = MatSolve(Z)
+function [CurrX,FLG] = MatSolve(Z,M,FLG)
 
-global FLG M N NS Cp Ea Ma La 
+global N NS Cp Ea Ma La % FLG
 global CR CI
 % 426 REM ********** SOLVE **********
 CR = zeros(N,1);
