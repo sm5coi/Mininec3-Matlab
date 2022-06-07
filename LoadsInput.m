@@ -1,8 +1,14 @@
-function FLG = LoadsInput(FLG)
+function LoadsInput(N,FLG)
 
-global  ML MA  N 
+% global   N 
 
-% MS MW MM MP P P0 G Ea La Ma S0 M SRM W W2 FLG 
+% MS MW MM MP P P0 G Ea La Ma S0 M SRM W W2 FLG ML MA
+
+% 10 REM ----- MAXIMUM NUMBER OF LOADS = 11
+ML = 11;
+% 12 REM ----- MAXIMUM ORDER OF S-PARAMETER LOADS = 8
+MA = 8;
+
 
 % 1454 REM ********** LOADS INPUT **********
 % 1455 PRINT
@@ -20,7 +26,7 @@ end
 % 1460 IF O$>"C" THEN PRINT #3,"NUMBER OF LOADS";NL
 % 1461 IF NL<1 THEN 1492
 if NL < 1
-    FLG = 0;
+%     FLG = 0;
     return
 end
 % 1462 INPUT "S-PARAMETER (S=jw) IMPEDANCE LOAD (Y/N)";L$
@@ -125,7 +131,7 @@ for I = 1:NL
     % 1491 NEXT I
 end
 % 1492 FLG=0
-FLG = 0;
+% FLG = 0;
 % 1493 RETURN
 return
 

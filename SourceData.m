@@ -1,6 +1,11 @@
-function SourceData(CurrX)
+function SourceData(CurrX,exci)
 
-global NS Ea Ma La BSd PWR fidPsi
+global BSd PWR fidPsi
+
+NS = exci.NS;
+Ea = exci.Ea;
+La = exci.La;
+Ma = exci.Ma;
 
 % 476 REM ********** SOURCE DATA **********
 fprintf('\n%s SOURCE DATA %s\n', BSd, BSd);

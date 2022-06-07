@@ -1,6 +1,6 @@
 function [CurrX,FLG]=FarFieldCalculation(freq,FLG,envir,CurrX,geom,exci)
 
-global PWR NM F BSd G N  W Sa Wp Ua
+global PWR NM F BSd G N Cp W Sa Wp Ua
 global CR CI G0
 global fidPsi
 
@@ -14,7 +14,6 @@ CB = geom.CABG(:,2);
 CG = geom.CABG(:,3);
 
 Cp = geom.Cp;
-
 
 % "VERTICAL", "HORIZONTAL", "TOTAL"
 Rub3 = 'ZENITH        AZIMUTH       VERTICAL      HORIZONTAL    TOTAL\n';

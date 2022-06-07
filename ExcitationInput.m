@@ -1,8 +1,9 @@
-function ExcitationInput(N,FLG)
+function [exci,FLG] = ExcitationInput(N,FLG)
 
-global MP P0 Ea La Ma NS
+P0 = pi/180;
 
-%  FLG
+% 19 REM ----- MAXIMUM NUMBER OF PULSES = 50 
+MP = 50;
 
 % 1429 REM ********** EXCITATION INPUT **********
 while 1
@@ -32,6 +33,13 @@ for I = 1:NS
     La(I) = VM*cos(VP*P0);
     Ma(I) = VM*sin(VP*P0);
 end
+
+exci.NS = NS;
+exci.Ea = Ea;
+exci.La = La;
+exci.Ma = Ma;
+
+
 if FLG == 2, FLG = 1; end
 return
 % test av sista raden.

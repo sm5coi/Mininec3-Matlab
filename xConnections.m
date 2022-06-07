@@ -1,17 +1,15 @@
-function [I1,I2,J1a,J2a,E,L,M] = Connections(I,NW,G,XYZ1,XYZ2,A,S1,J1a,J2a,E,L,M)
+function [ELM,I1,I2,J1a,J2a] = Connections(I,NW,G,XYZ1,XYZ2,A,S1,ELM,J1a,J2a)
 
 % 1298 REM ********** CONNECTIONS **********
 
-% ELM(I,:) = XYZ1;                % 1299 E(I)=X1 1300 L(I)=Y1 1301 M(I)=Z1
+ELM(I,:) = XYZ1;                % 1299 E(I)=X1 1300 L(I)=Y1 1301 M(I)=Z1
 E(I) = XYZ1(1);
 L(I) = XYZ1(2);
 M(I) = XYZ1(3);
-
-% ELM(I+NW,:) = XYZ2;             % 1302 E(I+NW)=X2 1303 L(I+NW)=Y2 1304 M(I+NW)=Z2
+ELM(I+NW,:) = XYZ2;             % 1302 E(I+NW)=X2 1303 L(I+NW)=Y2 1304 M(I+NW)=Z2
 E(I+NW) = XYZ2(1);
 L(I+NW) = XYZ2(2);
 M(I+NW) = XYZ2(3);
-
 Gp = 0;                         % 1305 G%=0  % Lokal variabel i Connections
 I1 = 0;                         % 1306 I1=0
 I2 = 0;                         % 1307 I2=0
@@ -69,7 +67,7 @@ elseif G == -1 % For Ground Plan
 
         % 1323 IF I=1 THEN 1358
         if I == 1
-            % 1358 PRINT
+            % 1358 PRINT 
             WriteConnection(XYZ1,XYZ2,I1,I2,A(I),S1);
             % 1362 RETURN
             return
@@ -96,8 +94,6 @@ elseif G == -1 % For Ground Plan
             % 1332 REM ----- CHECK FOR END1 TO END2
             % 1333 IF (X1=E(J+NW) AND Y1=L(J+NW) AND Z1=M(J+NW)) THEN 1335
             % 1334 GOTO 1339
-            %             if  (XYZ1(1) == ELM(J+NW,1)) && (XYZ1(2) == ELM(J+NW,2)) && ...
-            %                     (XYZ1(3) == ELM(J+NW,3))
             if  (XYZ1(1) == E(J+NW)) && (XYZ1(2) == L(J+NW)) && ...
                     (XYZ1(3) == M(J+NW))
                 % 1335 I1=J
@@ -127,8 +123,6 @@ if Gp ~= 1
             % 1343 REM ----- CHECK END2 TO END2
             % 1344 IF (X2=E(J+NW) AND Y2=L(J+NW) AND Z2=M(J+NW)) THEN 1346
             % 1345 GOTO 1351
-            %             if  (XYZ2(1) == ELM(J+NW,1)) && (XYZ2(2) == ELM(J+NW,2)) && ...
-            %                     (XYZ2(3) == ELM(J+NW,3))
             if  (XYZ2(1) == E(J+NW)) && (XYZ2(2) == L(J+NW)) && ...
                     (XYZ2(3) == M(J+NW))
                 % 1346 I2=-J
@@ -146,12 +140,10 @@ if Gp ~= 1
             % 1350 REM ----- CHECK FOR END2 TO END1
             % 1351 IF (X2=E(J) AND Y2=L(J) AND Z2=M(J)) THEN 1353
             % 1352 GOTO 1357
-            %             if  (XYZ2(1) == ELM(J,1)) && (XYZ2(2) == ELM(J,2)) && ...
-            %                     (XYZ2(3) == ELM(J,3))
             if  (XYZ2(1) == E(J)) && (XYZ2(2) == L(J)) && (XYZ2(3) == M(J))
                 I2 = J;
                 J2a(I,2) = J;
-
+                
                 if J2a(J,1) == -J % 1355 IF J2(J,1)=-J THEN J2(J,1)=J
                     J2a(J,1) = J;
                 end

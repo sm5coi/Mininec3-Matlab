@@ -1,10 +1,7 @@
-function [CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom)
+function [CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom,exci)
 
-% global FLG N CABG
-global Cp Sa P1 P2 % G 
-global I J F4 F5 F6 F7 F8
-global A
-global CSd Wp
+global F4 F5 F6 F7 F8
+global CSd
 
 global fidZRZI
 
@@ -13,8 +10,12 @@ persistent Zmn
 N = geom.N;
 CABG = geom.CABG;
 Sa = geom.Sa;
-J2a = geom.J2a;
-XYZa = geom.XYZa;
+Cp = geom.Cp;
+% Wp = geom.Wp;
+% XYZa = geom.XYZa;
+% A = geom.A;
+% J2a = geom.J2a;
+
 
 % 195 REM ********** IMPEDANCE MATRIX CALCULATION **********
 if FLG == 1      % NEW EXCITATION, RECALCULATE CURRENT % 196 IF FLG=1 THEN 428
@@ -65,7 +66,7 @@ for I =1:N  % 211 FOR I=1 TO N  (to 336)
             end
             F8 = 0;                     % 235 F8=0
             if K < 0                    % 236 IF K<0 THEN 248
-                Zmn = Beta_247_315Cmplx(I,J,K,J1,J2,dRm,A,Sa,CSd,J2a,Wp,XYZa,Zmn,freq); % *******************
+                Zmn = Beta_247_315Cmplx(I,J,K,J1,J2,dRm,CSd,Zmn,freq,geom); % *******************
             else
                 % 237 REM ----- SET FLAG TO AVOID REDUNANT CALCULATIONS
                 L238 = I1 ~= I2;
@@ -85,7 +86,7 @@ for I =1:N  % 211 FOR I=1 TO N  (to 336)
                 end
 
                 if real(Zmn(I,J)) == 0
-                    Zmn = Beta_247_315Cmplx(I,J,K,J1,J2,dRm,A,Sa,CSd,J2a,Wp,XYZa,Zmn,freq);  % *******************
+                    Zmn = Beta_247_315Cmplx(I,J,K,J1,J2,dRm,CSd,Zmn,freq,geom);  % *******************
                 end
             end
 
@@ -124,7 +125,9 @@ for I =1:N  % 211 FOR I=1 TO N  (to 336)
     end  % 333 NEXT J
 end  % 336 NEXT I
 
-[CurrX,FLG] = MatSolve(Zmn,freq.M,FLG);
+AdditionOfLoads
+
+[CurrX,FLG] = MatSolve(Zmn,freq.M,geom,exci);
 
 SourceData(CurrX);
 

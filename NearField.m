@@ -1,4 +1,4 @@
-function [CurrX,FLG] = NearField(XYZa,freq,FLG,envir,CurrX,geom)
+function [CurrX,FLG] = NearField(freq,FLG,envir,CurrX,geom,exci)
 
 global  PWR NM F BSd N Cp W Sa Wp Ua S0
 global CABG Xa Ya Za CR CI G0
@@ -10,7 +10,7 @@ global fidPsi
 % 874 REM ----- ENSURE CURRENTS HAVE BEEN CALCULATED
 % 875 IF FLG < 2 THEN GOSUB 196
 if (FLG < 2)
-    [CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom);
+    [CurrX,FLG] = ImpedanceMatrixCalculation(CurrX,freq,FLG,envir,geom,exci);
 end
 % 876 O2 = PWR
 O2 = PWR;
