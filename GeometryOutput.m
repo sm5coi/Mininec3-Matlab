@@ -78,7 +78,9 @@ for I = 1:N   % 1266 FOR I = 1 TO N
     % 1286 NEXT I
 end
 % 1287 PRINT
+fprintf('\n')
 % 1288 CLOSE 1: IF INFILE THEN INFILE = 0: IF O$ > "C" THEN 1293
 % 1289 INPUT "    CHANGE GEOMETRY (Y/N) "; A$
 % 1290 IF A$ = "Y" THEN 1153
 % 1291 IF A$ <> "N" THEN 1289
+return
