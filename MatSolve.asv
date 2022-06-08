@@ -1,0 +1,25 @@
+function [CurrX,FLG] = MatSolve(Zmn,freq,geom,exci)
+
+% 426 REM ********** SOLVE **********
+CR = zeros(geom.N,1);
+CI = zeros(geom.N,1);
+
+for J = 1:exci.NS                            % 432 FOR J=1 TO NS
+    F2 = 1/freq.M;                           % 433 	F2=1/M
+    % 434 	IF C%(E(J),1)=-C%(E(J),2) THEN F2=2/M
+    if geom.Cp(exci.Ea(J),1) == -geom.Cp(exci.Ea(J),2)
+        F2 = 2/M;
+    end
+    CR(exci.Ea(J)) = F2*exci.Ma(J);               % 435 	CR(E(J))=F2*M(J)
+    CI(exci.Ea(J)) = -F2*exci.La(J);              % 436 	CI(E(J))=-F2*L(J)
+end                                     % 437 NEXT J
+
+b = complex(CR,CI);
+
+FLG = 2;
+
+CurrX = Zmn\b;
+
+save Slv
+
+return

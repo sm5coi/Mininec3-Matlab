@@ -1,7 +1,5 @@
 function [exci,FLG] = ExcitationInput(N,FLG)
 
-P0 = pi/180;
-
 % 19 REM ----- MAXIMUM NUMBER OF PULSES = 50 
 MP = 50;
 
@@ -30,8 +28,8 @@ for I = 1:NS
     end
     %
     Ea(I) = EM;
-    La(I) = VM*cos(VP*P0);
-    Ma(I) = VM*sin(VP*P0);
+    La(I) = VM*cos(VP*pi/180);
+    Ma(I) = VM*sin(VP*pi/180);
 end
 
 exci.NS = NS;

@@ -20,7 +20,8 @@ else
     % 41 REM ----- CRITERIA FOR USING REDUCED KERNEL
     if I6u ~= 0 % 42 IF I6!=0 THEN 49
         % 43 REM ----- EXACT KERNEL CALCULATION WITH ELLIPTIC INTEGRAL
-        B=D3/(D3 + 4*A2); % 44 B=D3/(D3+4*A2)
+        % m = 1 - beta^2 = (sm -s')^2/((sm - s')^2 + 4a^2) in Eq 17 page 8
+        B=D3/(D3 + 4*A2); % 44 B=D3/(D3+4*A2) 
         V0 = EllipticIntegral(B); % LINE 45, 46 and 47
         V0 = V0*sqrt(1 - B);
         % 48 T3=T3+(V0+LOG(D3/(64*A2))/2)/P/A(P4)-1/D

@@ -3,6 +3,8 @@ function V0 = EllipticIntegral(B)
 % Following constants from Handbook of Mathematical Functions, 
 % by Abramowitz and Stegun, Issued June 1964, page 591
 
+% See Eq 17, page 8 in MININEC3.pdf
+
 C0 = 1.38629436112; C1 = 0.09666344259; C2 = 0.03590092383; C3 = 0.03742563713;
 C4 = 0.01451196212; C5 = 0.5; C6 = 0.12498593397; C7 = 0.06880248576;
 C8 = 0.0332835346; C9 = 0.00441787012;

@@ -1,4 +1,4 @@
-function LoadsInput(N,FLG)
+function LoadsInput(N)
 
 % global   N 
 

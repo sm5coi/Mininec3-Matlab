@@ -1,8 +1,10 @@
 function [CurrX,FLG]=FarFieldCalculation(freq,FLG,envir,CurrX,geom,exci)
 
-global PWR NM F BSd G N  W Sa Wp Ua
+global PWR NM F G N  W Sa Wp Ua
 global CR CI G0
 global fidPsi
+
+BSd = '********************';
 
 % Xa Ya Za
 Xa = geom.XYZa(:,1)';

@@ -1,6 +1,10 @@
 function SourceData(CurrX,exci)
 
-global BSd PWR fidPsi
+global PWR fidPsi
+
+% PWR to NearField and FarFieldCalculation
+
+BSd = '********************';
 
 NS = exci.NS;
 Ea = exci.Ea;

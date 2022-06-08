@@ -1,10 +1,10 @@
 function [CurrX,FLG] = NearField(freq,FLG,envir,CurrX,geom,exci)
 
-global  PWR NM F BSd N Cp W Sa Wp Ua S0
+global  PWR NM F N Cp W Sa Wp Ua S0
 global CABG Xa Ya Za CR CI G0
 global fidPsi
 
-% FLG G
+BSd = '********************';
 
 % 873 REM ********** NEAR FIELD CALCULATION **********
 % 874 REM ----- ENSURE CURRENTS HAVE BEEN CALCULATED
