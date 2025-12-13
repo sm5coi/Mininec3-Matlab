@@ -2,6 +2,8 @@ function [N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM] = GeometryInput(G)
 
 global FLG
 
+g_ = struct('N',[],'NW',[]); 
+
 ELM = zeros(4,3);
 
 INFILE = 1;
