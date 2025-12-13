@@ -29,7 +29,7 @@ fprintf('%s%s\n', BSd, BSd)
 FrequencyInput;
 G = EnvironmentInput;
 % 1526 REM ----- GEOMETRY INPUT
-[N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM] = GeometryInput(G);
+[N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM,g_] = GeometryInput(G);
 % 1528 REM ----- MENu
 fidPsi = fopen('PSI_DATA.dat','w');
 fidGau = fopen('GAUSS_DATA.dat','w');

@@ -1,4 +1,4 @@
-function [N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM] = GeometryInput(G)
+function [N,NW,CABG,Sa,Na,Cp,Wp,Xa,Ya,Za,A,ELM, g_] = GeometryInput(G)
 
 global FLG
 
@@ -109,6 +109,8 @@ for I = 1:NW
         Za(I1)=XYZ2(3);
     end
 end
+g_.N = N;
+g_.CABG = CABG;
 % 1256 1291 ********** GEOMETRY OUTPUT **********
 Wp
 Cp = GeometryOutput(N,Wp,NW,Na,Xa,Ya,Za,A,Cp)
